@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartFood.API", "SmartFood.API\SmartFood.API.csproj", "{44C8CF63-CDB7-4C4C-98F5-CB79D189CD91}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartFood.Domain", "SmartFood.Domain\SmartFood.Domain.csproj", "{5E3D8452-4441-4E0E-9979-4A365235D49E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartFood.Infrastructure", "SmartFood.Infrastructure\SmartFood.Infrastructure.csproj", "{73C098C3-636D-483B-A391-BB1FB516A711}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartFood.Common", "SmartFood.Common\SmartFood.Common.csproj", "{4E482699-5FB4-4608-B07D-99868FFFAA12}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{44C8CF63-CDB7-4C4C-98F5-CB79D189CD91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44C8CF63-CDB7-4C4C-98F5-CB79D189CD91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44C8CF63-CDB7-4C4C-98F5-CB79D189CD91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44C8CF63-CDB7-4C4C-98F5-CB79D189CD91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E3D8452-4441-4E0E-9979-4A365235D49E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E3D8452-4441-4E0E-9979-4A365235D49E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E3D8452-4441-4E0E-9979-4A365235D49E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E3D8452-4441-4E0E-9979-4A365235D49E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73C098C3-636D-483B-A391-BB1FB516A711}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73C098C3-636D-483B-A391-BB1FB516A711}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73C098C3-636D-483B-A391-BB1FB516A711}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73C098C3-636D-483B-A391-BB1FB516A711}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E482699-5FB4-4608-B07D-99868FFFAA12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E482699-5FB4-4608-B07D-99868FFFAA12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E482699-5FB4-4608-B07D-99868FFFAA12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E482699-5FB4-4608-B07D-99868FFFAA12}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {84141AD9-CEEB-4391-AD64-38281465898A}
+	EndGlobalSection
+EndGlobal
