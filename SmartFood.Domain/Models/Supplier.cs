@@ -1,6 +1,8 @@
-﻿namespace SmartFood.Domain.Models;
+﻿using SmartFood.Domain.Models.Interfaces;
 
-public class Supplier
+namespace SmartFood.Domain.Models;
+
+public class Supplier : IODataEntity
 {
     public Guid Id { get; set; }
     public bool IsBlocked { get; set; }

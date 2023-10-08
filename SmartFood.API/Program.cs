@@ -13,6 +13,10 @@ using SmartFood.Common.Configuration;
 using SmartFood.API;
 using SmartFood.Infrastructure.Services;
 using SmartFood.Infrastructure.Services.Interfaces;
+using Microsoft.OData.Edm;
+using Microsoft.OData.ModelBuilder;
+using System.Data;
+using Microsoft.AspNetCore.OData;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -80,7 +84,7 @@ builder.Services.AddCors(options =>
         });
 });
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddOData(opt => opt.AddRouteComponents("odata", GetEdmModel()));
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
 builder.Services.AddValidatorsFromAssemblyContaining<LoginRequestValidator>();
@@ -142,3 +146,14 @@ app.MapControllers();
 //app.UseSpa(c => c.UseProxyToSpaDevelopmentServer("http://localhost:4200/"));
 
 app.Run();
+
+
+static IEdmModel GetEdmModel()
+{
+    var builder = new ODataConventionModelBuilder();
+    builder.EntitySet<User>("Users");
+    builder.EntitySet<Dish>("Dishes");
+    builder.EntitySet<Supplier>("Suppliers");
+    builder.EnableLowerCamelCase();
+    return builder.GetEdmModel();
+}
