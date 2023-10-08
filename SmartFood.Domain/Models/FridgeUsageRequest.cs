@@ -8,9 +8,9 @@ public class FridgeUsageRequest
     public DateTime? AnsweredTime { get; set; }
     public RequestStatus Status { get; set; } = RequestStatus.Unseen;
     public Guid SupplierId { get; set; }
-    public Supplier Supplier { get; set; } = new();
+    public Supplier Supplier { get; set; }
     public Guid FridgeId { get; set; }
-    public Fridge Fridge { get; set; } = new();
+    public Fridge Fridge { get; set; }
     public Guid DishId { get; set; }
-    public Dish Dish { get; set; } = new();
+    public Dish Dish { get; set; }
 }

@@ -7,6 +7,6 @@ public class Fridge
     public bool IsOpen { get; set; }
     public bool IsDeleted { get; set; }
     public Guid FilialId { get; set; }
-    public Filial Filial { get; set; } = new();
+    public Filial Filial { get; set; }
     public List<StoredDish>? DishesServed { get; set; }
 }

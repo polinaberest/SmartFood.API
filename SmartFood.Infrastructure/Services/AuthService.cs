@@ -1,4 +1,5 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Authentication;
 using System.Security.Claims;
 using Azure.Core;
 using Microsoft.AspNetCore.Identity;
@@ -110,7 +111,7 @@ public class AuthService : IAuthService
                 case UserRoles.OrganizationManager:
                     var organization = new Organization
                     {
-                        ManagerId = createdUser.Id,
+                        Manager = createdUser,
                         Name = command.OrganizationName,
                         Description = command.Description
                     };
@@ -119,7 +120,7 @@ public class AuthService : IAuthService
                 case UserRoles.Supplier:
                     var supplier = new Supplier
                     {
-                        ManagerId = createdUser.Id,
+                        Manager = createdUser,
                         Name = command.OrganizationName,
                         Description = command.Description
                     };
@@ -146,7 +147,7 @@ public class AuthService : IAuthService
         var principal = this.jwtTokenService.GetPrincipalFromExpiredToken(token);
         if (principal == null)
         {
-            throw new ArgumentException("Invalid access token or refresh token");
+            throw new AuthenticationException("Invalid access token or refresh token");
         }
 
         var userId = Guid.Parse(principal.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)!.Value);
@@ -160,7 +161,7 @@ public class AuthService : IAuthService
 
         if (user == null)
         {
-            throw new ArgumentException("Invalid access token or refresh token");
+            throw new AuthenticationException("Invalid access token or refresh token");
         }
 
         var currentToken = user.IssuedTokens.First(c => c.RefreshToken == refreshToken);

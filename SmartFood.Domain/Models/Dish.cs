@@ -9,6 +9,6 @@ public class Dish : IODataEntity
     public decimal Price { get; set; }
     public string Description { get; set; } = string.Empty;
     public Guid SupplierId { get; set; }
-    public Supplier Supplier { get; set; } = new();
+    public Supplier Supplier { get; set; }
     public List<StoredDish>? FridgesServedInCount { get; set;}
 }

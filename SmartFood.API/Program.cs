@@ -17,6 +17,7 @@ using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
 using System.Data;
 using Microsoft.AspNetCore.OData;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,7 +28,6 @@ JwtSettings jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<Jw
                           throw new Exception("JWT configuration is missing");
 
 builder.Services.AddSingleton(jwtSettings);
-
 builder.Services.AddSingleton<IJwtTokenService, JwtTokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
@@ -84,7 +84,10 @@ builder.Services.AddCors(options =>
         });
 });
 
-builder.Services.AddControllers().AddOData(opt => opt.AddRouteComponents("odata", GetEdmModel()));
+builder.Services.AddControllers(c => c.ModelValidatorProviders.Clear()).AddOData(opt =>
+{
+    opt.AddRouteComponents("odata", GetEdmModel());
+});
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
 builder.Services.AddValidatorsFromAssemblyContaining<LoginRequestValidator>();
@@ -140,6 +143,8 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseExceptionHandlerMiddleware();
+
 app.MapControllers();
 
 
@@ -151,9 +156,9 @@ app.Run();
 static IEdmModel GetEdmModel()
 {
     var builder = new ODataConventionModelBuilder();
-    builder.EntitySet<User>("Users");
-    builder.EntitySet<Dish>("Dishes");
-    builder.EntitySet<Supplier>("Suppliers");
+    builder.EntitySet<User>("Users").EntityType.Count().Filter().Expand().Select();
+    builder.EntitySet<Dish>("Dishes").EntityType.Count().Filter().Expand().Select();
+    builder.EntitySet<Supplier>("Suppliers").EntityType.Count().Filter().Expand().Select();
     builder.EnableLowerCamelCase();
     return builder.GetEdmModel();
 }

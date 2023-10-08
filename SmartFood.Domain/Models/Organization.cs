@@ -8,6 +8,6 @@ public class Organization
     public string? Description { get; set; }
     public DateTime RegisterDate { get; set; } = DateTime.UtcNow;
     public Guid ManagerId { get; set; }
-    public User Manager { get; set; } = new();
+    public User Manager { get; set; }
     public List<Filial>? Filials { get; set; }
 }
