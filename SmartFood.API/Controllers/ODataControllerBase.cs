@@ -47,10 +47,10 @@ namespace SmartFood.API.Controllers
 
         public virtual async Task<IActionResult> Put([FromODataUri] Guid key, [FromBody] T entity)
         {
-            var isEntityExists = await CurrentDbSet.AnyAsync(e => e.Id == key);
-            if (!isEntityExists) return NotFound();
-            AppDbContext.DetachLocal(entity, key);
+            var dbEntity = await CurrentDbSet.FindAsync(key);
+            if (dbEntity is null) return NotFound();
             entity.Id = key;
+            AppDbContext.DetachLocal(entity, key);
             CurrentDbSet.Update(entity);
             await AppDbContext.SaveChangesAsync();
             return Updated(entity);

@@ -11,7 +11,12 @@ public static class EntityFrameworkHelpers
         var local = context.Set<T>()
             .Local
             .FirstOrDefault(entry => entry.Id.Equals(entryId));
-        if (!(local is null)) context.Entry(local).State = EntityState.Detached;
+        
+        if (local is not null)
+        {
+            context.Entry(local).State = EntityState.Detached;
+        }
+        
         context.Entry(t).State = EntityState.Modified;
     }
 }
