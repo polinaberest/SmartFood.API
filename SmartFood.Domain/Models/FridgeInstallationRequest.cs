@@ -1,6 +1,8 @@
-﻿namespace SmartFood.Domain.Models;
+﻿using SmartFood.Domain.Models.Interfaces;
 
-public class FridgeInstallationRequest
+namespace SmartFood.Domain.Models;
+
+public class FridgeInstallationRequest : IODataEntity
 {
     public Guid Id { get; set; }
     public string PlacementDescription { get; set; } = string.Empty;

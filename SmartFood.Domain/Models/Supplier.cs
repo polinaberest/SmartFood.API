@@ -11,5 +11,5 @@ public class Supplier : IODataEntity
     public DateTime RegisterDate { get; set; } = DateTime.UtcNow;
     public Guid ManagerId { get; set; }
     public User Manager { get; set; }
-    public List<Dish>? Dishes { get; set; }
+    public List<Dish>? Dishes { get; set; } = new List<Dish>();
 }

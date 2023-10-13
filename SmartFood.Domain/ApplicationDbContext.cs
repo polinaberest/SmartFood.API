@@ -13,6 +13,7 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole<Guid>, 
     public DbSet<Filial> Filials { get; set; }
     public DbSet<Fridge> Fridges { get; set; }
     public DbSet<FridgeInstallationRequest> FridgeInstallationRequests { get; set; }
+    public DbSet<FridgeDeinstallationRequest> FridgeDeinstallationRequests { get; set; }
     public DbSet<FridgeUsageRequest> FridgeUsageRequests { get; set; }
     public DbSet<Organization> Organizations { get; set; }
     public DbSet<Supplier> Suppliers { get; set; }

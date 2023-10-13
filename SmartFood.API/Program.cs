@@ -18,6 +18,7 @@ using Microsoft.OData.ModelBuilder;
 using System.Data;
 using Microsoft.AspNetCore.OData;
 using Microsoft.AspNetCore.Mvc;
+using SmartFood.API.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -159,6 +160,11 @@ static IEdmModel GetEdmModel()
     builder.EntitySet<User>("Users").EntityType.Count().Filter().Expand().Select();
     builder.EntitySet<Dish>("Dishes").EntityType.Count().Filter().Expand().Select();
     builder.EntitySet<Supplier>("Suppliers").EntityType.Count().Filter().Expand().Select();
+    builder.EntitySet<Organization>("Organizations").EntityType.Count().Filter().Expand().Select();
+    builder.EntitySet<Filial>("Filials").EntityType.Count().Filter().Expand().Select();
+    builder.EntitySet<Fridge>("Fridges").EntityType.Count().Filter().Expand().Select();
+    builder.EntitySet<FridgeInstallationRequest>("FridgeInstallationRequests").EntityType.Count().Filter().Expand().Select();
+    builder.EntitySet<FridgeUsageRequest>("FridgeUsageRequests").EntityType.Count().Filter().Expand().Select();
     builder.EnableLowerCamelCase();
     return builder.GetEdmModel();
 }
