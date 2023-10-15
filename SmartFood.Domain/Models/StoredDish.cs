@@ -1,6 +1,8 @@
-﻿namespace SmartFood.Domain.Models;
+﻿using SmartFood.Domain.Models.Interfaces;
 
-public class StoredDish
+namespace SmartFood.Domain.Models;
+
+public class StoredDish : IODataEntity
 {
     public Guid Id { get; set; }
     public int CountAvailable { get; set; }

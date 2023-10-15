@@ -15,10 +15,7 @@ using SmartFood.Infrastructure.Services;
 using SmartFood.Infrastructure.Services.Interfaces;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
-using System.Data;
 using Microsoft.AspNetCore.OData;
-using Microsoft.AspNetCore.Mvc;
-using SmartFood.API.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -165,6 +162,9 @@ static IEdmModel GetEdmModel()
     builder.EntitySet<Fridge>("Fridges").EntityType.Count().Filter().Expand().Select();
     builder.EntitySet<FridgeInstallationRequest>("FridgeInstallationRequests").EntityType.Count().Filter().Expand().Select();
     builder.EntitySet<FridgeUsageRequest>("FridgeUsageRequests").EntityType.Count().Filter().Expand().Select();
+    builder.EntitySet<StoredDish>("StoredDishes").EntityType.Count().Filter().Expand().Select();
+    builder.EntitySet<Order>("Orders").EntityType.Count().Filter().Expand().Select();
+
     builder.EnableLowerCamelCase();
     return builder.GetEdmModel();
 }

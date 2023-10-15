@@ -15,6 +15,7 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole<Guid>, 
     public DbSet<FridgeInstallationRequest> FridgeInstallationRequests { get; set; }
     public DbSet<FridgeDeinstallationRequest> FridgeDeinstallationRequests { get; set; }
     public DbSet<FridgeUsageRequest> FridgeUsageRequests { get; set; }
+    public DbSet<Order> Orders { get; set; }
     public DbSet<Organization> Organizations { get; set; }
     public DbSet<Supplier> Suppliers { get; set; }
     public DbSet<IssuedToken> IssuedTokens { get; set; }
