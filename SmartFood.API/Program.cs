@@ -20,12 +20,17 @@ using Microsoft.AspNetCore.OData;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration
-    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddUserSecrets(typeof(Program).Assembly);
 
 JwtSettings jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>() ??
                           throw new Exception("JWT configuration is missing");
 
+AdminSettings adminSettings = builder.Configuration.GetSection("AdminSettings").Get<AdminSettings>() ??
+                              throw new Exception("Admin configuration is missing");
+
 builder.Services.AddSingleton(jwtSettings);
+builder.Services.AddSingleton(adminSettings);
 builder.Services.AddSingleton<IJwtTokenService, JwtTokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
@@ -125,6 +130,8 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+
+builder.Services.AddHostedService<AdminInitializerHostedService>();
 
 var app = builder.Build();
 
