@@ -9,6 +9,6 @@ public class Fridge : IODataEntity
     public bool IsOpen { get; set; }
     public bool IsDeleted { get; set; } = false;
     public Guid FilialId { get; set; }
-    public Filial Filial { get; set; }
+    public Filial? Filial { get; set; }
     public List<StoredDish>? DishesServed { get; set; } = new List<StoredDish>();
 }

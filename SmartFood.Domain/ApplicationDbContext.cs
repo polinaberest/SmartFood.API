@@ -15,6 +15,7 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole<Guid>, 
     public DbSet<FridgeInstallationRequest> FridgeInstallationRequests { get; set; }
     public DbSet<FridgeDeinstallationRequest> FridgeDeinstallationRequests { get; set; }
     public DbSet<FridgeUsageRequest> FridgeUsageRequests { get; set; }
+    public DbSet<TechInspectionRequest> TechInspectionRequests { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<Organization> Organizations { get; set; }
     public DbSet<Supplier> Suppliers { get; set; }
@@ -36,5 +37,8 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole<Guid>, 
 
         builder.Entity<FridgeUsageRequest>().HasOne(c => c.Fridge).WithMany().OnDelete(DeleteBehavior.NoAction);
         builder.Entity<FridgeUsageRequest>().HasOne(c => c.Supplier).WithMany().OnDelete(DeleteBehavior.NoAction);
+
+        builder.Entity<Order>().HasOne(o => o.OrderedDish).WithMany().HasForeignKey(o => o.OrderedDishId).OnDelete(DeleteBehavior.NoAction);
+        builder.Entity<Order>().HasOne(o => o.Customer).WithMany().HasForeignKey(o => o.CustomerId).OnDelete(DeleteBehavior.NoAction);
     }
 }
