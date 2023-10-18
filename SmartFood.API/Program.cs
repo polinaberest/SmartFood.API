@@ -29,8 +29,12 @@ JwtSettings jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<Jw
 AdminSettings adminSettings = builder.Configuration.GetSection("AdminSettings").Get<AdminSettings>() ??
                               throw new Exception("Admin configuration is missing");
 
+FridgeConnectionSettings fridgeConnectionSettings = builder.Configuration.GetSection("FridgeConnectionSettings").Get<FridgeConnectionSettings>() ??
+                              throw new Exception("IoT devices (Smart Fridges) connection configuration is missing");
+
 builder.Services.AddSingleton(jwtSettings);
 builder.Services.AddSingleton(adminSettings);
+builder.Services.AddSingleton(fridgeConnectionSettings);
 builder.Services.AddSingleton<IJwtTokenService, JwtTokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
@@ -171,6 +175,8 @@ static IEdmModel GetEdmModel()
     builder.EntitySet<FridgeUsageRequest>("FridgeUsageRequests").EntityType.Count().Filter().Expand().Select();
     builder.EntitySet<StoredDish>("StoredDishes").EntityType.Count().Filter().Expand().Select();
     builder.EntitySet<Order>("Orders").EntityType.Count().Filter().Expand().Select();
+    builder.EntitySet<FridgeDeinstallationRequest>("FridgeDeinstallationRequests").EntityType.Count().Filter().Expand().Select();
+    builder.EntitySet<TechInspectionRequest>("TechInspectionRequests").EntityType.Count().Filter().Expand().Select();
 
     builder.EnableLowerCamelCase();
     return builder.GetEdmModel();

@@ -1,6 +1,8 @@
-﻿namespace SmartFood.Domain.Models;
+﻿using SmartFood.Domain.Models.Interfaces;
 
-public class FridgeDeinstallationRequest
+namespace SmartFood.Domain.Models;
+
+public class FridgeDeinstallationRequest : IODataEntity
 {
     public Guid Id { get; set; }
     public DateTime RequestTime { get; set; } = DateTime.UtcNow;
