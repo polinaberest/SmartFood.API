@@ -38,6 +38,8 @@ builder.Services.AddSingleton(fridgeConnectionSettings);
 builder.Services.AddSingleton<IJwtTokenService, JwtTokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
+builder.Services.AddHttpClient();
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MsSql"),
         o => o.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
