@@ -126,6 +126,8 @@ public class AuthService : IAuthService
                     };
                     dbContext.Suppliers.Add(supplier);
                     break;
+                case UserRoles.Employee:
+                    break;
                 default:
                     throw new ArgumentException($"Registration for role {command.Role} is not supported.", nameof(command.Role));
             }

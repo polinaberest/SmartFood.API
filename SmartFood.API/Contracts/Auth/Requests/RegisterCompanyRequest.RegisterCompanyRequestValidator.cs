@@ -5,12 +5,12 @@ using SmartFood.Domain;
 
 namespace SmartFood.API.Contracts.Auth.Requests;
 
-public class RegisterRequestValidator : AbstractValidator<RegisterRequest>
+public class RegisterCompanyRequestValidator : AbstractValidator<RegisterCompanyRequest>
 {
     private static readonly IEnumerable<string> RolesAllowedForRegistration =
-        UserRoles.AvailableRoles.Except(new[] { UserRoles.Administrator }).ToArray();
+        UserRoles.AvailableRoles.Except(new[] { UserRoles.Administrator, UserRoles.Employee }).ToArray();
 
-    public RegisterRequestValidator(ApplicationDbContext dbContext)
+    public RegisterCompanyRequestValidator (ApplicationDbContext dbContext)
     {
         RuleFor(c => c.Password).NotEmpty();
         RuleFor(c => c.Name).NotEmpty().MinimumLength(3);
@@ -20,5 +20,10 @@ public class RegisterRequestValidator : AbstractValidator<RegisterRequest>
         RuleFor(c => c.Email)
             .EmailAddress()
             .MustAsync((e, _) => dbContext.Users.AllAsync(u => u.Email != e)).WithMessage("User with this email already exists.");
+
+        RuleFor(c => c.Description).NotEmpty().MinimumLength(3);
+        RuleFor(c => c.OrganizationName).NotEmpty().MinimumLength(3);
+        RuleFor(c => c.Role)
+            .Must(c => c.ToLower() != UserRoles.Employee).WithMessage("Registration role is invalid.");
     }
 }

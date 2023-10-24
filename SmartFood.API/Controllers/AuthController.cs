@@ -58,6 +58,19 @@ namespace SmartFood.API.Controllers
         }
 
         [HttpPost]
+        [Route("registerCompany")]
+        [ProducesResponseType(typeof(RegisterResponse), StatusCodes.Status200OK)]
+        public async Task<IActionResult> RegisterCompany([FromBody] RegisterCompanyRequest request)
+        {
+            var registerCommand = this.mapper.Map<RegisterCommand>(request);
+
+            var registeredUser = await this.authService.RegisterUserAsync(registerCommand);
+
+            var response = new RegisterResponse(registeredUser.Id);
+            return Ok(response);
+        }
+
+        [HttpPost]
         [Route("register")]
         [ProducesResponseType(typeof(RegisterResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
