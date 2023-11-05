@@ -10,5 +10,4 @@ public class Dish : IODataEntity
     public string Description { get; set; } = string.Empty;
     public Guid SupplierId { get; set; }
     public Supplier Supplier { get; set; }
-    public List<StoredDish>? FridgesServedInCount { get; set;} = new List<StoredDish>();
 }

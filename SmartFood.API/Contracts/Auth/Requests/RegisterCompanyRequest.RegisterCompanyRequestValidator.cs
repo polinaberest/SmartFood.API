@@ -18,7 +18,7 @@ public class RegisterCompanyRequestValidator : AbstractValidator<RegisterCompany
             .Must(c => RolesAllowedForRegistration.Contains(c.ToLower())).WithMessage("Registration role is invalid.");
 
         RuleFor(c => c.Email)
-            .EmailAddress()
+            .EmailAddress().WithMessage("Email address is not valid")
             .MustAsync((e, _) => dbContext.Users.AllAsync(u => u.Email != e)).WithMessage("User with this email already exists.");
 
         RuleFor(c => c.Description).NotEmpty().MinimumLength(3);
