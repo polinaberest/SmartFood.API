@@ -56,7 +56,7 @@ namespace SmartFood.API.Controllers
             return Updated(entity);
         }
 
-        public virtual async Task<IActionResult> Delete([FromODataUri] Guid key)
+        public virtual async Task<IActionResult> Delete([FromRoute] Guid key)
         {
             var entityFromStorage = await CurrentDbSet.FirstOrDefaultAsync(l => l.Id == key);
             if (entityFromStorage is null) return NotFound();

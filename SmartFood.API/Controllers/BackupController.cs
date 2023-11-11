@@ -30,7 +30,6 @@ namespace SmartFood.API.Controllers
 
                 var backupPath = Path.Combine(backupDirectoryPath, backupFileName);
                 var backupCommand = $"BACKUP DATABASE SmartFood TO DISK = '{backupPath}'";
-=
                 appDbContext.Database.ExecuteSqlRaw(backupCommand);
 
                 return Ok($"Backup created successfully, stored at {backupPath}");

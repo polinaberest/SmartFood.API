@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Formatter;
 using Microsoft.EntityFrameworkCore;
 using SmartFood.Domain;
@@ -16,7 +17,7 @@ namespace SmartFood.API.Controllers
             this.httpClientFactory = httpClientFactory;
         }
 
-        public async override Task<IActionResult> Delete([FromODataUri] Guid key)
+        public async override Task<IActionResult> Delete([FromRoute] Guid key)
         {
             var techInspectionRequest = await AppDbContext.TechInspectionRequests.FindAsync(key);
             if (techInspectionRequest == null) 
@@ -32,17 +33,18 @@ namespace SmartFood.API.Controllers
             return await base.Delete(key);
         }
 
+        [AllowAnonymous]
+        public override Task<IActionResult> Post([FromBody] TechInspectionRequest entity)
+        {
+            return base.Post(entity);
+        }
+
         private async Task ResetFridgeValues(string uri)
         {
             var client = httpClientFactory.CreateClient();
-            var request = new HttpRequestMessage()
-            {
-                Method = HttpMethod.Post,
-                RequestUri = new Uri(uri),
-                Content = null
-            };
-            var response = await client.SendAsync(request);
+            var request = new HttpRequestMessage(HttpMethod.Post, new Uri(uri + "/TechInspection"));
+            var response = await client.PostAsJsonAsync(new Uri(uri + "/TechInspection").ToString(), new {});
+            //var response = await client.SendAsync(request);
         }
-
     }
 }

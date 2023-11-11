@@ -87,13 +87,17 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: CORS_POLICY,
         corsPolicyBuilder =>
         {
-            corsPolicyBuilder.WithOrigins("http://localhost:4200");
+            corsPolicyBuilder.WithOrigins("http://localhost:*");
             corsPolicyBuilder.AllowAnyMethod();
             corsPolicyBuilder.AllowAnyHeader();
         });
 });
 
-builder.Services.AddControllers(c => c.ModelValidatorProviders.Clear()).AddOData(opt =>
+builder.Services.AddControllers(c =>
+{
+    c.ModelValidatorProviders.Clear();
+    c.ValidateComplexTypesIfChildValidationFails = false;
+}).AddOData(opt =>
 {
     opt.AddRouteComponents("odata", GetEdmModel());
 });

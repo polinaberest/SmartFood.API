@@ -53,10 +53,6 @@ namespace SmartFood.Infrastructure.Tests
 
             // Assert
             Assert.IsFalse(string.IsNullOrEmpty(refreshToken));
-
-
-            
-
         }
 
         [TestMethod]
