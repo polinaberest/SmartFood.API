@@ -23,7 +23,7 @@ namespace SmartFood.API.Tests.Controllers
         public void Initialize()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "TestDatabase")
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .Options;
 
             dbContext = new ApplicationDbContext(options);
