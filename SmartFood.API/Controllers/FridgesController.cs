@@ -4,13 +4,17 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SmartFood.Domain;
 using SmartFood.Domain.Models;
+using System.Net.Http;
 
 namespace SmartFood.API.Controllers
 {
     public class FridgesController : ODataControllerBase<Fridge>
     {
-        public FridgesController(ApplicationDbContext appDbContext) : base(appDbContext)
+        private readonly IHttpClientFactory httpClientFactory;
+
+        public FridgesController(ApplicationDbContext appDbContext, IHttpClientFactory httpClientFactory) : base(appDbContext)
         {
+            this.httpClientFactory = httpClientFactory;
         }
 
         public override async Task<IActionResult> Delete([FromODataUri] Guid key)
@@ -42,6 +46,18 @@ namespace SmartFood.API.Controllers
             };
 
             applicationDbContext.FridgeDeinstallationRequests.Add(deinstallRequest);
+        }
+
+        [HttpGet("fridge/{fridgeId}/statistics")]
+        public async Task<IActionResult> GetFridgeStatistics(Guid fridgeId)
+        {
+            var client = httpClientFactory.CreateClient();
+            var fridge = AppDbContext.Fridges.FirstOrDefault(f => f.Id == fridgeId);
+
+            var res = await client.GetAsync(fridge.URI + "/Statistics");
+            var statistics = await res.Content.ReadAsStringAsync();
+
+            return Ok(statistics);
         }
 
         private static void RemoveStoredDishes(Guid fridgeId, ApplicationDbContext applicationDbContext) 

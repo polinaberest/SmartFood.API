@@ -58,8 +58,18 @@ namespace SmartFood.API.Controllers
             var fridge = AppDbContext.Fridges.FirstOrDefault(f => f.Id == order.OrderedDish.FridgeId);
 
             await UpdateFridgeDoorOpenCount(fridge.URI);
+            await UpdateFridgeStatistics(fridge.URI);
 
             return await base.Put(key, entity);
+        }
+
+        [HttpGet("fridge/{fridgeId}/orders")]
+        public async Task<IActionResult> GetFridgeOrders(Guid fridgeId)
+        {
+            Order[] result = await AppDbContext.Orders.Include(c => c.OrderedDish)
+                .Where(o => o.OrderedDish.FridgeId == fridgeId).ToArrayAsync();
+            
+            return Ok(result);
         }
 
         private async Task UpdateFridgeDoorOpenCount(string uri)
@@ -68,5 +78,13 @@ namespace SmartFood.API.Controllers
             client.Timeout = TimeSpan.FromMinutes(5);
             var response = await client.PutAsJsonAsync(new Uri(uri + "/TechInspection/updateDoorOpenCount").ToString(), new { });
         }
+
+        private async Task UpdateFridgeStatistics(string uri)
+        {
+            var client = httpClientFactory.CreateClient();
+            client.Timeout = TimeSpan.FromMinutes(5);
+            var response = await client.PutAsJsonAsync(new Uri(uri + "/Statistics/updateStatistics").ToString(), new { });
+        }
+
     }
 }
