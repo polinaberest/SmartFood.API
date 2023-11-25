@@ -21,7 +21,7 @@ namespace SmartFood.Infrastructure.Tests
                 Secret = "your_secret_key_here",
                 ValidIssuer = "issuer",
                 ValidAudience = "audience",
-                TokenValidityInMinutes = 60 // Modify this value if needed
+                TokenValidityInMinutes = 60 
             };
 
             jwtTokenService = new JwtTokenService(jwtSettings);

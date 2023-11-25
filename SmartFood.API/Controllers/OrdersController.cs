@@ -68,5 +68,29 @@ namespace SmartFood.API.Controllers
             client.Timeout = TimeSpan.FromMinutes(5);
             var response = await client.PutAsJsonAsync(new Uri(uri + "/TechInspection/updateDoorOpenCount").ToString(), new { });
         }
+
+        [HttpGet("getFridgeOrders")]
+        public IActionResult GetFridgeOrders([FromQuery] Guid fridgeId)
+        {
+            try
+            {
+                var orders = AppDbContext.Orders
+                    .Include(order => order.OrderedDish)
+                    .Where(order => order.OrderedDish.FridgeId == fridgeId)
+                    .ToList();
+
+                if (orders == null || !orders.Any())
+                {
+                    return NotFound("No orders found for the specified fridgeId.");
+                }
+
+                return Ok(orders);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as appropriate for your application
+                return StatusCode(500, "Internal server error");
+            }
+        }
     }
 }

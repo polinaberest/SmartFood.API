@@ -128,6 +128,8 @@ public class AuthService : IAuthService
                     break;
                 case UserRoles.Employee:
                     break;
+                case UserRoles.Sysadmin:
+                    break;
                 default:
                     throw new ArgumentException($"Registration for role {command.Role} is not supported.", nameof(command.Role));
             }

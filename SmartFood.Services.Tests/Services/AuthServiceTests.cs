@@ -26,7 +26,7 @@ namespace SmartFood.Infrastructure.Services.Tests
         public void Initialize()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "MovieListDatabase")
+                .UseInMemoryDatabase(databaseName: "Database")
                 .Options;
             dbContextMock = new ApplicationDbContext(options);
             userManagerMock = new Mock<UserManager<User>>(Mock.Of<IUserStore<User>>(), null, null, null, null, null, null, null, null);
@@ -78,28 +78,6 @@ namespace SmartFood.Infrastructure.Services.Tests
             // Assert
             Assert.IsNotNull(result);
         }
-
-        //[TestMethod]
-        //[ExpectedException(typeof(Exception))]
-        //public async Task RegisterUserAsync_ShouldThrowExceptionOnFailure()
-        //{
-        //    // Arrange
-        //    var authService = new AuthService(dbContextMock, userManagerMock.Object, jwtSettingsMock.Object, jwtTokenServiceMock.Object);
-        //    var command = new RegisterCommand
-        //    {
-        //        Email = "test@example.com",
-        //        Password = "password123",
-        //        Name = "Test User",
-        //        Role = "TestRole",
-        //        OrganizationName = "TestOrg",
-        //        Description = "Test Description"
-        //    };
-
-        //    userManagerMock.Setup(x => x.CreateAsync(It.IsAny<User>(), command.Password)).ReturnsAsync(IdentityResult.Failed());
-
-        //    // Act & Assert
-        //    await authService.RegisterUserAsync(command);
-        //}
 
         [TestMethod]
         [ExpectedException(typeof(AuthenticationException))]
