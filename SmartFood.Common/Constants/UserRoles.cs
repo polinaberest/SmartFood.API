@@ -6,6 +6,7 @@ public static class UserRoles
 
     // Must be lowercase to avoid case sensitivity issues in the future.
     public const string Administrator = "admin";
+    public const string Sysadmin = "sysadmin";
     public const string Supplier = "supplier";
     public const string OrganizationManager = "organizationmanager";
     public const string Employee = "employee";

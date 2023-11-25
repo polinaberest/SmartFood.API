@@ -68,7 +68,12 @@ namespace SmartFood.API.Controllers
         {
             Order[] result = await AppDbContext.Orders.Include(c => c.OrderedDish)
                 .Where(o => o.OrderedDish.FridgeId == fridgeId).ToArrayAsync();
-            
+
+            if (result == null || !result.Any())
+            {
+                return NotFound("No orders found for the specified fridgeId.");
+            }
+
             return Ok(result);
         }
 
@@ -85,6 +90,5 @@ namespace SmartFood.API.Controllers
             client.Timeout = TimeSpan.FromMinutes(5);
             var response = await client.PutAsJsonAsync(new Uri(uri + "/Statistics/updateStatistics").ToString(), new { });
         }
-
     }
 }
